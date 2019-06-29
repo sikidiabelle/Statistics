@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="c:\program files (x86)\microsoft visual studio\2017\community\team tools\static analysis tools\fxcop\Xml\CodeAnalysisReport.xsl"?>
+<FxCopReport Version="15.0">
+ <Targets>
+  <Target Name="C:\Users\12454360\source\repos\C#\testbddwpf\bin\Debug\testbddwpf.exe">
+   <Modules>
+    <Module Name="testbddwpf.exe">
+     <Namespaces>
+      <Namespace Name="Heavy">
+       <Types>
+        <Type Name="MainWindow" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#Importer" Kind="Field" Static="False" Accessibility="Assembly" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823" Status="ExcludedInSource" Created="2019-05-20 07:45:51Z" FixCategory="NonBreaking" LastSeen="0001-01-01 00:00:00Z" />
+           </Messages>
+          </Member>
+          <Member Name="#monbouton_Click(System.Object,System.Windows.RoutedEventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="Vérifier si les requêtes SQL présentent des failles de sécurité" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2019-05-20 07:45:51Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\Users\12454360\source\repos\C#\testbddwpf" File="MainWindow.xaml.cs" Line="56">La chaîne de requête passée en 'SqlCommand.SqlCommand(string, SqlConnection)' dans 'MainWindow.monbouton_Click(object, RoutedEventArgs)' n'a pas pu contenir les variables 'commandStrings.GetEnumerator().Current' suivantes. Si ces variables proviennent d'entrées d'utilisateur, utilisez une procédure stockée ou une requête SQL paramétrable au lieu de générer la requête à l'aide de concaténations de chaîne.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#System.Windows.Markup.IComponentConnector.Connect(System.Int32,System.Object)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="AvoidExcessiveComplexity" Category="Microsoft.Maintainability" CheckId="CA1502" Status="ExcludedInSource" Created="2019-05-20 07:45:51Z" FixCategory="NonBreaking" LastSeen="0001-01-01 00:00:00Z" />
+            <Message TypeName="DoNotCastUnnecessarily" Category="Microsoft.Performance" CheckId="CA1800" Status="ExcludedInSource" Created="2019-05-20 07:45:51Z" FixCategory="NonBreaking" LastSeen="0001-01-01 00:00:00Z" />
+            <Message TypeName="InterfaceMethodsShouldBeCallableByChildTypes" Category="Microsoft.Design" CheckId="CA1033" Status="ExcludedInSource" Created="2019-05-20 07:45:51Z" FixCategory="NonBreaking" LastSeen="0001-01-01 00:00:00Z" />
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="testbddwpf">
+       <Types>
+        <Type Name="BDDDataSet" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Messages>
+          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2019-05-20 07:45:51Z" FixCategory="NonBreaking">
+           <Issue Certainty="60" Level="Error">Ajoutez une implémentation de GetObjectData au type 'BDDDataSet'.</Issue>
+          </Message>
+         </Messages>
+        </Type>
+        <Type Name="BDDDataSet+DotationsDataTable" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Messages>
+          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2019-05-20 07:45:51Z" FixCategory="NonBreaking">
+           <Issue Certainty="60" Level="Error">Ajoutez une implémentation de GetObjectData au type 'BDDDataSet.DotationsDataTable'.</Issue>
+          </Message>
+         </Messages>
+        </Type>
+        <Type Name="BDDDataSet+Realise2018DataTable" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Messages>
+          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2019-05-20 07:45:51Z" FixCategory="NonBreaking">
+           <Issue Certainty="60" Level="Error">Ajoutez une implémentation de GetObjectData au type 'BDDDataSet.Realise2018DataTable'.</Issue>
+          </Message>
+         </Messages>
+        </Type>
+        <Type Name="BDDDataSet+Trajectoire2019DataTable" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Messages>
+          <Message TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240" Status="Active" Created="2019-05-20 07:45:51Z" FixCategory="NonBreaking">
+           <Issue Certainty="60" Level="Error">Ajoutez une implémentation de GetObjectData au type 'BDDDataSet.Trajectoire2019DataTable'.</Issue>
+          </Message>
+         </Messages>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="testbddwpf.Properties">
+       <Types>
+        <Type Name="Resources" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
+         <Members>
+          <Member Name="#.ctor()" Kind="Method" Static="False" Accessibility="Assembly" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Status="ExcludedInSource" Created="2019-05-20 07:45:51Z" FixCategory="NonBreaking" LastSeen="0001-01-01 00:00:00Z" />
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+     </Namespaces>
+    </Module>
+   </Modules>
+  </Target>
+ </Targets>
+ <Rules>
+  <Rule TypeName="AvoidExcessiveComplexity" Category="Microsoft.Maintainability" CheckId="CA1502">
+   <Name>Éviter l'excès de complexité</Name>
+   <Description>Les implémentations de méthodes qui sont extrêmement complexes rendent la compréhension et la gestion du code plus difficiles.</Description>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182212.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="90">Warning</MessageLevel>
+   <File Name="maintainabilityrules.dll" Version="15.0.0.0" />
+  </Rule>
+  <Rule TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811">
+   <Name>Évitez le recours à du code privé non appelé</Name>
+   <Description>Il existe du code non appelé qui n'est pas visible de l'extérieur et ne constitue pas un point d'entrée connu du runtime. Si cette violation provoque une erreur, signalez le problème à l'équipe Visual Studio Code Analysis.</Description>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182264.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <File Name="performancerules.dll" Version="15.0.0.0" />
+  </Rule>
+  <Rule TypeName="AvoidUnusedPrivateFields" Category="Microsoft.Performance" CheckId="CA1823">
+   <Name>Évitez les champs privés inutilisés</Name>
+   <Description>Ces champs privés visiblement inaccessibles dans l'assembly ont été détectés. Si cette violation provoque une erreur, signalez le problème à l'équipe Visual Studio Code Analysis.</Description>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms245042.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <File Name="performancerules.dll" Version="15.0.0.0" />
+  </Rule>
+  <Rule TypeName="DoNotCastUnnecessarily" Category="Microsoft.Performance" CheckId="CA1800">
+   <Name>N'effectuez pas de cast inutilement</Name>
+   <Description>Pour des questions de coût, évitez si possible d'utiliser des casts en double.</Description>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182271.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="95">Warning</MessageLevel>
+   <File Name="performancerules.dll" Version="15.0.0.0" />
+  </Rule>
+  <Rule TypeName="ImplementISerializableCorrectly" Category="Microsoft.Usage" CheckId="CA2240">
+   <Name>Implémentez ISerializable comme il se doit</Name>
+   <Description>Si un type peut être assigné à ISerializable, il doit implémenter GetObjectData. Pour les types unsealed, la méthode GetObjectData doit pouvoir être appelée et remplacée par des types dérivés.</Description>
+   <Resolution Name="Default">Ajoutez une implémentation de GetObjectData au type {0}.</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182342.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="60">Error</MessageLevel>
+   <File Name="usagerules.dll" Version="15.0.0.0" />
+  </Rule>
+  <Rule TypeName="InterfaceMethodsShouldBeCallableByChildTypes" Category="Microsoft.Design" CheckId="CA1033">
+   <Name>Les méthodes d'interface doivent pouvoir être appelées par les types enfants</Name>
+   <Description>Les implémentations de méthodes explicites sont définies à l'aide de l'accessibilité Private. Les classes dérivées de classes dotées d'implémentations de méthodes explicites et qui choisissent de les déclarer à nouveau sur la classe ne pourront pas appeler l'implémentation de la classe de base sauf si la classe de base a fourni une autre méthode dotée de l'accessibilité appropriée. Lorsque vous remplacez une méthode de classe de base qui a été masquée par une implémentation d'interface explicite, pour appeler l'implémentation de la classe de base, une classe dérivée doit effectuer un cast du pointeur de base vers l'interface appropriée. Cependant, lors d'un appel via cette référence, l'implémentation de la classe dérivée sera réellement appelée, ce qui entraînera une récurrence et un dépassement de capacité de la pile final.</Description>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182153.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="95">Error</MessageLevel>
+   <File Name="designrules.dll" Version="15.0.0.0" />
+  </Rule>
+  <Rule TypeName="Vérifier si les requêtes SQL présentent des failles de sécurité" Category="Microsoft.Security" CheckId="CA2100">
+   <Name>Vérifier si les requêtes SQL présentent des failles de sécurité</Name>
+   <Description>Une chaîne de commande SQL générée par une entrée d'utilisateur est vulnérable aux attaques par injection de code SQL. Microsoft SQL Server ainsi que d'autres serveurs de base de données prennent en charge les procédures stockées et les requêtes SQL paramétrables, qui réduisent les risques de telles attaques.</Description>
+   <Resolution Name="WithNonLiterals">La chaîne de requête passée en {0} dans {1} n'a pas pu contenir les variables {2} suivantes. Si ces variables proviennent d'entrées d'utilisateur, utilisez une procédure stockée ou une requête SQL paramétrable au lieu de générer la requête à l'aide de concaténations de chaîne.</Resolution>
+   <Owner>RuleOwner</Owner>
+   <Url>http://msdn.microsoft.com/library/ms182310.aspx</Url>
+   <Email />
+   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <File Name="dataflowrules.dll" Version="15.0.0.0" />
+  </Rule>
+ </Rules>
+ <Localized>
+  <String Key="Category">Catégorie</String>
+  <String Key="Certainty">Certitude</String>
+  <String Key="CollapseAll">Réduire tout</String>
+  <String Key="CheckId">ID de contrôle</String>
+  <String Key="Error">Erreur</String>
+  <String Key="Errors">erreur(s)</String>
+  <String Key="ExpandAll">Développer tout</String>
+  <String Key="Help">Aide</String>
+  <String Key="Line">Ligne</String>
+  <String Key="Messages">message(s)</String>
+  <String Key="LocationNotStoredInPdb">[Emplacement non stocké dans le fichier Pdb]</String>
+  <String Key="Project">Projet</String>
+  <String Key="Resolution">Résolution</String>
+  <String Key="Rule">Règle</String>
+  <String Key="RuleFile">Fichier de règles</String>
+  <String Key="RuleDescription">Description de la règle</String>
+  <String Key="Source">Source</String>
+  <String Key="Status">État</String>
+  <String Key="Target">Cible</String>
+  <String Key="Warning">Avertissement</String>
+  <String Key="Warnings">avertissement(s)</String>
+  <String Key="ReportTitle">Rapport d'analyse du code</String>
+ </Localized>
+</FxCopReport>

@@ -1,0 +1,219 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Accueil</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+</head>
+<body>
+
+    <div id="dotation_1" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+    <div id="trajectoire-realise" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <div id="realise-mois" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+    <script type="text/javascript">
+        var dot = @Html.Raw(Json.Encode(ViewData["Dotations"]));
+        var offres = @Html.Raw(Json.Encode(ViewData["Offres"]));
+        var an = @Html.Raw(Json.Encode(ViewData["Annees"]));
+        var trajec = @Html.Raw(Json.Encode(ViewData["Trajectoires"]));
+        var realise = @Html.Raw(Json.Encode(ViewData["Realises"]));
+
+        var dotationChart = [];
+        var offreChart = [];
+        var trajecChart = [];
+        var realiseChart = [];
+        var valeurTrajectoire = [];
+        var valeurRealise = [];
+        for (var i = 0; i < offres.length; i++) {
+            var sumDotation = 0;
+            var sumTrajectoire = 0;
+            var sumRealise = 0;
+            offreChart.push(offres[i].nom.substring(10));
+            for (var j = 0; j < dot.length; j++) {
+                if (dot[j].AnneeId == "2" && dot[j].OffreId == offres[i].Id) {
+                    sumDotation = sumDotation - dot[j].Montant;
+                }
+            }
+            for (var j = 0; j < realise.length; j++) {
+                if (realise[j].OffreId == offres[i].Id) {
+                    if (realise[j].Compta < 0) {
+                        sumRealise = sumRealise - realise[j].Compta;
+                    }
+                    else {
+                        sumRealise = sumRealise + realise[j].Compta;
+                    }
+                }
+            }
+            for (var j = 0; j < trajec.length; j++) {
+                if (trajec[j].AnneeId == "2" && trajec[j].OffreId == offres[i].Id) {
+                    if (trajec[j].Valeur < 0) {
+                        sumTrajectoire = sumTrajectoire - trajec[j].Valeur;
+                    }
+                    else {
+                        sumTrajectoire = sumTrajectoire + trajec[j].Valeur;
+                    }
+                }
+            }
+            valeurTrajectoire.push(sumTrajectoire);
+            valeurRealise.push(sumRealise);
+            if (sumDotation != 0)
+            {
+                dotationChart.push({ name: offres[i].nom.substring(10), y: sumDotation });
+            }
+        }
+        
+        trajecChart.push({ name: 'Trajectoires 2019', data: valeurTrajectoire });
+        trajecChart.push({ name: 'Réalisés 2018', data: valeurRealise });
+
+        var realiseMoisChart = [];
+        for (var i = 0; i < offres.length; i++) {
+            var realiseMois = [];
+            for (j = 1; j < 13; j++) {
+                var sum = 0;
+                for (var k = 0; k < realise.length; k++) {
+                    if (realise[k].OffreId == offres[i].Id && realise[k].PeriodeId == j) {
+                        if (realise[j].Compta < 0) {
+                            sum = sum - realise[j].Compta;
+                        }
+                        else {
+                            sum = sum + realise[j].Compta;
+                        }
+                    }
+                }
+                realiseMois.push(sum);
+            }
+            realiseMoisChart.push({ name: offres[i].nom.substring(10), data: realiseMois });
+        }
+
+        //CHART REALISE PAR MOIS
+        Highcharts.chart('realise-mois', {
+          chart: {
+            type: 'line'
+          },
+          title: {
+            text: 'Réalisé 2018 par mois'
+          },
+          subtitle: {
+            text: 'Source: Esigelec-IF-SIKI ET HASSANE'
+          },
+          xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+          },
+          yAxis: {
+            title: {
+              text: 'Montant (€)'
+            }
+          },
+          plotOptions: {
+            line: {
+              dataLabels: {
+                enabled: true
+              },
+              enableMouseTracking: false
+            }
+            },
+            series: realiseMoisChart
+        });
+
+        //CHART REALISES - TRAJECTOIRES
+        Highcharts.chart('trajectoire-realise', {
+          chart: {
+            type: 'column'
+          },
+          title: {
+            text: 'Trajectoires/Realises par offre'
+          },
+          subtitle: {
+            text: 'Source: Esigelec-IF-SIKI ET HASSANE'
+          },
+            xAxis: {
+                categories: offreChart,
+            crosshair: true
+          },
+          yAxis: {
+            min: 0,
+            title: {
+              text: 'Montant (€)'
+            }
+          },
+          tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+              '<td style="padding:0"><b>{point.y:.1f} €</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+          },
+          plotOptions: {
+            column: {
+              pointPadding: 0.2,
+              borderWidth: 0
+            }
+            },
+            series: trajecChart
+        });
+
+        //PIE CHART POUR LES DOTATIONS
+        function dotation(annee, dot, offres)
+        {
+            var dotationChart = [];
+            var offreChart = [];
+
+            for (var i = 0; i < offres.length; i++) {
+                var sumDotation = 0;
+                offreChart.push(offres[i].nom.substring(10));
+                for (var j = 0; j < dot.length; j++) {
+                    if (dot[j].AnneeId == annee && dot[j].OffreId == offres[i].Id) {
+                        sumDotation = sumDotation - dot[j].Montant;
+                    }
+                }
+                if (sumDotation != 0)
+                {
+                    dotationChart.push({ name: offres[i].nom.substring(10), y: sumDotation });
+                }
+            }
+            Highcharts.chart('dotation_' + annee, {
+              chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+              },
+                title: {
+                    text: 'Dotations ' + String(2017 + annee)
+              },
+              tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+              },
+              plotOptions: {
+                pie: {
+                  allowPointSelect: true,
+                  cursor: 'pointer',
+                  dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                      color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                  }
+                }
+              },
+              series: [{
+                  name: 'Dotations',
+                colorByPoint: true,
+                data: dotationChart
+              }]
+            });
+        }
+
+        dotation(1, dot, offres);
+    </script>
+</body>
+</html>
